@@ -1,0 +1,81 @@
+; Простая сортировка
+<input> 8 2 5 11 7 9 11 1001 1
+
+; Число проходов
+READ 1
+LOAD 1
+
+; Для повторного цикла
+STORE 2
+
+; Инкремент вложеного цикла
+LOAD=0
+STORE 3
+
+; Переменная для swap
+LOAD=0
+STORE 4
+
+LOOP:
+ LOAD 1
+ ADD =4
+ READ *0
+ LOAD 1
+ SUB =1
+ STORE 1
+ JGTZ LOOP
+
+LOAD 2
+STORE 1
+
+
+SECOND_LOOP:
+ ADD =4
+ STORE 2
+ 
+ SUB =1
+ 
+ STORE 3
+
+ INNER_LOOP:
+  LOAD *2
+  SUB *3
+  JZ I_INNER_LOOP
+  JGTZ SWAP
+  JMP I_INNER_LOOP
+ JZ I_SECCOND_LOOP
+
+
+I_INNER_LOOP:
+  LOAD 3
+  SUB =1
+  STORE 3
+  SUB =4
+  JGTZ INNER_LOOP
+  JMP I_SECCOND_LOOP
+
+I_SECCOND_LOOP:
+  LOAD 1
+  SUB =1
+  STORE 1
+  JGTZ SECOND_LOOP
+  LOAD=8
+  STORE 1
+  JMP OUTPUT
+
+SWAP:
+  LOAD *3
+  STORE 4
+  LOAD *2
+  STORE *3
+  LOAD 4
+  STORE *2
+  JMP I_INNER_LOOP
+
+OUTPUT:
+  ADD =4
+  WRITE *0
+  SUB =5
+  STORE 1
+  JGTZ OUTPUT
+HALT
