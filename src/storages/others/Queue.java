@@ -1,7 +1,5 @@
 package storages.others;
 
-import storages.others.Node;
-
 public class Queue<T> {
 
     private Node<T> head, tail;

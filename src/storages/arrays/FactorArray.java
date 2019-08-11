@@ -8,7 +8,7 @@ public class FactorArray<T> extends CommonArray<T> {
     private int size;
 
     public FactorArray() {
-        this.factor = 1000;
+        this.factor = 100;
         array = new Object[10];
         size = 0;
     }
@@ -28,24 +28,52 @@ public class FactorArray<T> extends CommonArray<T> {
     }
 
     private void resize() {
-        Object[] newArray = new Object[size + (size * (factor / 100))];
+        Object[] newArray = new Object[array.length + (array.length * (factor / 100))];
 
-        System.arraycopy(this.array, 0, newArray, 0, this.size);
+        System.arraycopy(this.array, 0, newArray, 0, array.length);
         array = newArray;
-    }
-
-    @Override
-    public T get(int index) {
-        return null;
     }
 
     @Override
     public void add(T item, int index) {
 
+        while (index > array.length) {
+            Object[] newArray = new Object[array.length + (array.length * (factor / 100))];
+            System.arraycopy(this.array, 0, newArray, 0, array.length);
+            array = newArray;
+        }
+
+        if(size() == array.length){
+            resize();
+        }
+
+        Object[] newArray = new Object[array.length];
+
+        System.arraycopy(array, 0, newArray, 0, index);
+        newArray[index] = item;
+        if (index < size()) {
+            System.arraycopy(array, index, newArray, index + 1, array.length - index - 1);
+        }
+        size++;
+        array = newArray;
     }
 
     @Override
     public T remove(int index) {
-        return null;
+        T element = get(index);
+
+        Object[] newArray = new Object[array.length];
+
+        if (index == 0) {
+            System.arraycopy(array, 1, newArray, 0, array.length - 1);
+        } else {
+            System.arraycopy(array, 0, newArray, 0, index);
+            System.arraycopy(array, index + 1, newArray, index, array.length - index - 1);
+        }
+        size--;
+        array = newArray;
+
+        return element;
     }
+
 }
