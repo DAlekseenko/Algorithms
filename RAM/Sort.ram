@@ -1,12 +1,17 @@
 ; Простая сортировка
-<input> 8 2 5 11 7 9 11 1001 1
+<input>  1 8
 
 ; Число проходов
 READ 1
 LOAD 1
 
+JZ END
+
 ; Для повторного цикла
 STORE 2
+
+; Для вывода
+STORE 5
 
 ; Инкремент вложеного цикла
 LOAD=0
@@ -16,9 +21,10 @@ STORE 3
 LOAD=0
 STORE 4
 
+; Читаем из ленты
 LOOP:
  LOAD 1
- ADD =4
+ ADD =5
  READ *0
  LOAD 1
  SUB =1
@@ -30,36 +36,38 @@ STORE 1
 
 
 SECOND_LOOP:
- ADD =4
+ LOAD 1
+ ADD =5
  STORE 2
- 
+
  SUB =1
  
  STORE 3
 
  INNER_LOOP:
-  LOAD *2
-  SUB *3
+  LOAD *3
+  SUB *4
   JZ I_INNER_LOOP
   JGTZ SWAP
   JMP I_INNER_LOOP
- JZ I_SECCOND_LOOP
+ JZ I_SECOND_LOOP
 
 
 I_INNER_LOOP:
   LOAD 3
   SUB =1
   STORE 3
-  SUB =4
+  SUB =5
   JGTZ INNER_LOOP
-  JMP I_SECCOND_LOOP
+  JMP I_SECOND_LOOP
 
-I_SECCOND_LOOP:
+I_SECOND_LOOP:
   LOAD 1
   SUB =1
   STORE 1
+  SUB=1
   JGTZ SECOND_LOOP
-  LOAD=8
+  LOAD 5
   STORE 1
   JMP OUTPUT
 
@@ -73,9 +81,11 @@ SWAP:
   JMP I_INNER_LOOP
 
 OUTPUT:
-  ADD =4
+  ADD =5
   WRITE *0
-  SUB =5
+  SUB =6
   STORE 1
   JGTZ OUTPUT
-HALT
+
+END:
+ HALT

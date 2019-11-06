@@ -1,5 +1,5 @@
 ; Вычитание чисел
-<input> 30 0
+<input> 0 456
 read 1
 read 2
 load =0
