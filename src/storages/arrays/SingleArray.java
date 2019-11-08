@@ -15,48 +15,19 @@ public class SingleArray<T> extends CommonArray<T> {
 
     @Override
     public void add(Object item) {
-        resize();
+        array = resize(array,  1);
         array[size() - 1] = item;
     }
 
     @Override
-    public void add(Object item, int index) {
-        while (index > size()){
-            resize();
-        }
+    public void add(int index, Object item) {
 
-        Object[] newArray = new Object[size() + 1];
+        Object[] newArray = resize(array, 1);
 
         System.arraycopy(array, 0, newArray, 0, index);
         newArray[index] = item;
         System.arraycopy(array, index, newArray, index + 1, size() - index);
 
         array = newArray;
-    }
-
-
-    private void resize() {
-        Object[] newArray = new Object[size() + 1];
-
-        System.arraycopy(array, 0, newArray, 0, size());
-        array = newArray;
-    }
-
-    @Override
-    public T remove(int index) {
-        T element = get(index);
-
-        Object[] newArray = new Object[size() - 1];
-
-        if (index == 0) {
-            System.arraycopy(array, 1, newArray, 0, size() - 1);
-        } else {
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, size() - index - 1);
-        }
-
-        array = newArray;
-
-        return element;
     }
 }

@@ -13,17 +13,22 @@ public class MatrixArray<T> implements IArray<T> {
 
     public MatrixArray(int vector) {
         this.vector = vector;
-        array = new SingleArray<>();
+        array = new SingleArray<IArray<T>>();
         size = 0;
     }
 
     @Override
     public void add(T item) {
         if (size == array.size() * vector) {
-            array.add(new VectorArray<>(vector));
+            array.add(new VectorArray<T>(vector));
         }
         array.get(size / vector).add(item);
         size++;
+    }
+
+    @Override
+    public void add(int index, T item) {
+
     }
 
     @Override
@@ -33,7 +38,6 @@ public class MatrixArray<T> implements IArray<T> {
                 .get(index % vector);
     }
 
-    @Override
     public void add(T item, int index) {
 
     }

@@ -5,11 +5,10 @@ import storages.arrays.IArray;
 public class FactorArray<T> extends CommonArray<T> {
 
     private int factor;
-    private int size;
 
     public FactorArray() {
         this.factor = 100;
-        array = new Object[10];
+        array = new Object[this.factor];
         size = 0;
     }
 
@@ -21,30 +20,25 @@ public class FactorArray<T> extends CommonArray<T> {
     @Override
     public void add(T item) {
         if(size() == array.length){
-            resize();
+            int delta = size() * (factor / 100); // size * 1
+            array = resize(array, delta);
         }
         array[size] = item;
         size++;
     }
 
-    private void resize() {
-        Object[] newArray = new Object[array.length + (array.length * (factor / 100))];
-
-        System.arraycopy(this.array, 0, newArray, 0, array.length);
-        array = newArray;
-    }
-
     @Override
-    public void add(T item, int index) {
+    public void add(int index, T item) {
 
-        while (index > array.length) {
-            Object[] newArray = new Object[array.length + (array.length * (factor / 100))];
+        if (index > array.length) {
+            Object[] newArray = new Object[index];
             System.arraycopy(this.array, 0, newArray, 0, array.length);
             array = newArray;
         }
 
-        if(size() == array.length){
-            resize();
+        if(index == array.length){
+            int delta = size() * (factor / 100);
+            array = resize(array, delta);
         }
 
         Object[] newArray = new Object[array.length];
@@ -57,23 +51,4 @@ public class FactorArray<T> extends CommonArray<T> {
         size++;
         array = newArray;
     }
-
-    @Override
-    public T remove(int index) {
-        T element = get(index);
-
-        Object[] newArray = new Object[array.length];
-
-        if (index == 0) {
-            System.arraycopy(array, 1, newArray, 0, array.length - 1);
-        } else {
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, array.length - index - 1);
-        }
-        size--;
-        array = newArray;
-
-        return element;
-    }
-
 }

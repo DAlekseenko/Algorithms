@@ -13,10 +13,10 @@ public class PriorityQueue<T> {
 
     public void enqueue(int priority, T item) {
         if (array.size() < priority) {
-            array.add(new Queue<T>(), priority);
+            array.add(priority, new Queue<T>());
         }
         if(array.get(priority) == null){
-            array.add(new Queue<T>(), priority);
+            array.add(priority, new Queue<T>());
         }
         array.get(priority).enqueue(item);
     }

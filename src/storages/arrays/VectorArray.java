@@ -5,9 +5,8 @@ import storages.arrays.IArray;
 public class VectorArray<T> extends CommonArray<T> {
 
     private int vector;
-    private int size;
 
-    public VectorArray(int vector) {
+    VectorArray(int vector) {
         this.vector = vector;
         array = new Object[0];
         size = 0;
@@ -25,30 +24,23 @@ public class VectorArray<T> extends CommonArray<T> {
     @Override
     public void add(T item) {
         if (size() == array.length) {
-            resize();
+            array = resize(array, size() + vector);
         }
         array[size] = item;
         size++;
     }
 
-    private void resize() {
-        Object[] newArray = new Object[size + vector];
-
-        System.arraycopy(this.array, 0, newArray, 0, this.size);
-        array = newArray;
-    }
-
     @Override
-    public void add(T item, int index) {
+    public void add(int index, T item) {
 
-        while (index > array.length) {
-            Object[] newArray = new Object[array.length + vector];
+        if (index > array.length) {
+            Object[] newArray = new Object[index];
             System.arraycopy(this.array, 0, newArray, 0, this.size);
             array = newArray;
         }
 
         if(size() == array.length){
-            resize();
+            array = resize(array, size() + vector);
         }
 
         Object[] newArray = new Object[array.length];
@@ -59,24 +51,6 @@ public class VectorArray<T> extends CommonArray<T> {
         }
         size++;
         array = newArray;
-    }
-
-    @Override
-    public T remove(int index) {
-        T element = get(index);
-
-        Object[] newArray = new Object[array.length];
-
-        if (index == 0) {
-            System.arraycopy(array, 1, newArray, 0, array.length - 1);
-        } else {
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, array.length - index - 1);
-        }
-        size--;
-        array = newArray;
-
-        return element;
     }
 
 }

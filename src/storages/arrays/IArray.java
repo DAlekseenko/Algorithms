@@ -7,9 +7,10 @@ public interface IArray<T> {
 
     void add(T item);
 
+    void add(int index, T item);
+
     T get(int index);
 
-    void add(T item, int index);
-
     T remove(int index);
+
 }
