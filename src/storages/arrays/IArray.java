@@ -12,5 +12,4 @@ public interface IArray<T> {
     T get(int index);
 
     T remove(int index);
-
 }

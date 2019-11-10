@@ -17,11 +17,13 @@ public class FactorArray<T> extends CommonArray<T> {
         return size;
     }
 
+    private int getDelta(){
+        return  size() * (factor / 100); // size * 1
+    }
     @Override
     public void add(T item) {
         if(size() == array.length){
-            int delta = size() * (factor / 100); // size * 1
-            array = resize(array, delta);
+            array = resize(array, getDelta());
         }
         array[size] = item;
         size++;
@@ -29,26 +31,9 @@ public class FactorArray<T> extends CommonArray<T> {
 
     @Override
     public void add(int index, T item) {
-
-        if (index > array.length) {
-            Object[] newArray = new Object[index];
-            System.arraycopy(this.array, 0, newArray, 0, array.length);
-            array = newArray;
+        if(size() == array.length){
+            array = resize(array, getDelta());
         }
-
-        if(index == array.length){
-            int delta = size() * (factor / 100);
-            array = resize(array, delta);
-        }
-
-        Object[] newArray = new Object[array.length];
-
-        System.arraycopy(array, 0, newArray, 0, index);
-        newArray[index] = item;
-        if (index < size()) {
-            System.arraycopy(array, index, newArray, index + 1, array.length - index - 1);
-        }
-        size++;
-        array = newArray;
+        addReIndexArray(index, item);
     }
 }

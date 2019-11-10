@@ -1,7 +1,5 @@
 package storages.arrays;
 
-import storages.arrays.IArray;
-
 public class VectorArray<T> extends CommonArray<T> {
 
     private int vector;
@@ -32,25 +30,9 @@ public class VectorArray<T> extends CommonArray<T> {
 
     @Override
     public void add(int index, T item) {
-
-        if (index > array.length) {
-            Object[] newArray = new Object[index];
-            System.arraycopy(this.array, 0, newArray, 0, this.size);
-            array = newArray;
-        }
-
-        if(size() == array.length){
+        if (size() == array.length) {
             array = resize(array, size() + vector);
         }
-
-        Object[] newArray = new Object[array.length];
-        System.arraycopy(array, 0, newArray, 0, index);
-        newArray[index] = item;
-        if (index < size()) {
-            System.arraycopy(array, index, newArray, index + 1, array.length - index - 1);
-        }
-        size++;
-        array = newArray;
+        addReIndexArray(index, item);
     }
-
 }

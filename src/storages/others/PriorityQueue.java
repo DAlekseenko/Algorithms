@@ -7,17 +7,14 @@ public class PriorityQueue<T> {
 
     private IArray<Queue<T>> array;
 
-    public PriorityQueue() {
+    public PriorityQueue(int priorities) {
         array = new SingleArray<>();
+        for (int i = 0; i <= priorities; i++) {
+            array.add(0,new Queue<T>());
+        }
     }
 
     public void enqueue(int priority, T item) {
-        if (array.size() < priority) {
-            array.add(priority, new Queue<T>());
-        }
-        if(array.get(priority) == null){
-            array.add(priority, new Queue<T>());
-        }
         array.get(priority).enqueue(item);
     }
 

@@ -13,13 +13,13 @@ public class MatrixArray<T> implements IArray<T> {
 
     public MatrixArray(int vector) {
         this.vector = vector;
-        array = new SingleArray<IArray<T>>();
+        array = new SingleArray<>();
         size = 0;
     }
 
     @Override
     public void add(T item) {
-        if (size == array.size() * vector) {
+        if (size() == array.size() * vector) {
             array.add(new VectorArray<T>(vector));
         }
         array.get(size / vector).add(item);
@@ -28,7 +28,18 @@ public class MatrixArray<T> implements IArray<T> {
 
     @Override
     public void add(int index, T item) {
-
+        if (size() == array.size() * vector) {
+            array.add(new VectorArray<T>(vector));
+        }
+        int toPush = index / vector;
+        for (int i = array.size() - 1; i > toPush; --i) {
+            int elementIndex = array.get(i - 1).size() - 1;
+            T element = array.get(i - 1).get(elementIndex);
+            array.get(i).add(0, element);
+            array.get(i - 1).remove(elementIndex);
+        }
+        array.get(toPush).add(index % vector, item);
+        size++;
     }
 
     @Override
@@ -38,12 +49,19 @@ public class MatrixArray<T> implements IArray<T> {
                 .get(index % vector);
     }
 
-    public void add(T item, int index) {
-
-    }
-
     @Override
     public T remove(int index) {
-        return null;
+        int toRemoved = index / vector;
+        T removed = array.get(toRemoved).remove(index % vector);
+        for (int i = toRemoved + 1; i < array.size(); ++i) {
+            T element = array.get(i).get(0);
+            array.get(i - 1).add(element);
+            array.get(i).remove(0);
+        }
+        if (array.get(array.size() - 1).size() == 0){
+            array.remove(array.size() - 1);
+        }
+        size--;
+        return removed;
     }
 }
