@@ -6,13 +6,11 @@ public abstract class CommonArray<T> implements IArray<T> {
 
     Object[] array;
 
-    @Override
     @SuppressWarnings("unchecked")
     public T get(int index) {
         return (T) array[index];
     }
 
-    @Override
     public T remove(int index) {
         T element = get(index);
 
@@ -32,7 +30,7 @@ public abstract class CommonArray<T> implements IArray<T> {
         return newArray;
     }
 
-    void addReIndexArray(int index, T item){
+    void addReIndexArray(int index, T item) {
         Object[] newArray = new Object[array.length];
         System.arraycopy(array, 0, newArray, 0, index);
         newArray[index] = item;

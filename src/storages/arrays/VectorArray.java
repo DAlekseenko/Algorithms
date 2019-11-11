@@ -4,7 +4,7 @@ public class VectorArray<T> extends CommonArray<T> {
 
     private int vector;
 
-    VectorArray(int vector) {
+   public VectorArray(int vector) {
         this.vector = vector;
         array = new Object[0];
         size = 0;
