@@ -3,7 +3,7 @@ package algebraic;
 public class Test {
 
     public static void main(String[] args) {
-        test_simple_number();
+        test_fib();
     }
 
     private static void test_gcd() {
@@ -34,17 +34,31 @@ public class Test {
 
     private static void test_simple_number() {
         long start = System.currentTimeMillis();
-        double result = Functions.enumerate(100000);
+        double result = Functions.enumerate(10000);
         long duration = System.currentTimeMillis() - start;
         System.out.println(result + " " + duration + " ms " + "Через перебор делителей.");
         start = System.currentTimeMillis();
-        result = Functions.enumerate_opt(100000);
+        result = Functions.enumerate_opt(1000000);
         duration = System.currentTimeMillis() - start;
         System.out.println(result + " " + duration + " ms " + "Оптимизаций с использованием массива");
         start = System.currentTimeMillis();
-        result = Functions.sieve_of_eratosthenes( 100000);
+        result = Functions.sieve_of_eratosthenes(1000000);
         duration = System.currentTimeMillis() - start;
         System.out.println(result + " " + duration + " ms " + "Решето Эратосфена со сложностью O(n log log n)");
     }
 
+    private static void test_fib() {
+        long start = System.currentTimeMillis();
+        double result = Functions.fib_rec(7);
+        long duration = System.currentTimeMillis() - start;
+        System.out.println(result + " " + duration + " ms " + "Через рекурсию");
+        start = System.currentTimeMillis();
+        result = Functions.fib_iter(7);
+        duration = System.currentTimeMillis() - start;
+        System.out.println(result + " " + duration + " ms " + "Через итерацию");
+        start = System.currentTimeMillis();
+        result = Functions.fib_golden_ratio(7);
+        duration = System.currentTimeMillis() - start;
+        System.out.println(result + " " + duration + " ms " + "По формуле золотого сечения");
+    }
 }

@@ -29,16 +29,4 @@ public abstract class CommonArray<T> implements IArray<T> {
         System.arraycopy(array, 0, newArray, 0, size());
         return newArray;
     }
-
-    void addReIndexArray(int index, T item) {
-        Object[] newArray = new Object[array.length];
-        System.arraycopy(array, 0, newArray, 0, index);
-        newArray[index] = item;
-
-        if (index < size()) {
-            System.arraycopy(array, index, newArray, index + 1, array.length - index - 1);
-        }
-        size++;
-        array = newArray;
-    }
 }

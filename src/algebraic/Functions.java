@@ -129,7 +129,7 @@ public class Functions {
         }
         for (int j = 2; j < simpleNumbers.length; j++) {
             if (simpleNumbers[j]) {
-                for (int k = j; k * j < simpleNumbers.length; k++) {
+                for (int k = 2; k * j < simpleNumbers.length; k++) {
                     simpleNumbers[k * j] = false;
                 }
             }
@@ -145,16 +145,32 @@ public class Functions {
         return count;
     }
 
-    static public void fib() {
+    static long fib_rec(int n) {
+        if (n <= 2) {
+            return 1;
+        } else {
+            return fib_rec(n - 1) + fib_rec(n - 2);
+        }
+    }
+
+    static int fib_iter(int n) {
+        if (n < 2) {
+            return 1;
+        }
+
         int n0 = 1;
         int n1 = 1;
-        int n2 = 0;
-        System.out.print(n0 + " " + n1 + " ");
-        for (int i = 3; i <= 13; i++) {
-            n2 = n0 + n1;
+
+        for (int i = 3; i <= n; i++) {
+            int n2 = n0 + n1;
             n0 = n1;
             n1 = n2;
         }
-        System.out.println(n2);
+        return n1;
+    }
+
+    static double fib_golden_ratio(int n) {
+        double f = (1 + exp_pow_multi(5, 2)) / 2;
+        return Math.floor(exp_pow_multi(f, n) / exp_pow_multi(5, 2) + 0.5);
     }
 }

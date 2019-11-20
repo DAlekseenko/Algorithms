@@ -7,7 +7,7 @@ public class Test {
 
     public static void main(String[] args) {
 
-        testSingleArray();
+       testSingleArray();
         testFactorArray();
         testVectorArray();
         testMatrixArray();

@@ -33,6 +33,14 @@ public class VectorArray<T> extends CommonArray<T> {
         if (size() == array.length) {
             array = resize(array, size() + vector);
         }
-        addReIndexArray(index, item);
+        Object[] newArray = new Object[array.length];
+        System.arraycopy(array, 0, newArray, 0, index);
+        newArray[index] = item;
+
+        if (index < size()) {
+            System.arraycopy(array, index, newArray, index + 1, size() - index);
+        }
+        size++;
+        array = newArray;
     }
 }

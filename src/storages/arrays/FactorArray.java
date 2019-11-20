@@ -17,12 +17,13 @@ public class FactorArray<T> extends CommonArray<T> {
         return size;
     }
 
-    private int getDelta(){
-        return  size() * (factor / 100); // size * 1
+    private int getDelta() {
+        return size() * (factor / 100); // size * 1
     }
+
     @Override
     public void add(T item) {
-        if(size() == array.length){
+        if (size() == array.length) {
             array = resize(array, getDelta());
         }
         array[size] = item;
@@ -31,9 +32,17 @@ public class FactorArray<T> extends CommonArray<T> {
 
     @Override
     public void add(int index, T item) {
-        if(size() == array.length){
+        if (size() == array.length) {
             array = resize(array, getDelta());
         }
-        addReIndexArray(index, item);
+        Object[] newArray = new Object[array.length];
+        System.arraycopy(array, 0, newArray, 0, index);
+        newArray[index] = item;
+
+        if (index < size()) {
+            System.arraycopy(array, index, newArray, index + 1, size() - index);
+        }
+        size++;
+        array = newArray;
     }
 }
