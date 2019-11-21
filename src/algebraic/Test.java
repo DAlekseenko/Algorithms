@@ -3,7 +3,29 @@ package algebraic;
 public class Test {
 
     public static void main(String[] args) {
-        test_fib();
+        int[] arr = {1,5,6,8,9,5,1};
+        for (int size = arr.length - 1; size > 0; size--) {
+            sort(arr, size);
+        }
+        for (int i : arr) {
+            System.out.println(i);
+        }
+    }
+
+    private static void sort(int[] arr, int size) {
+
+        for (int j = size; j > 0; j--) {
+            if (arr[j] > arr[0]) {
+                swap(arr, j, 0);
+            }
+        }
+        swap(arr, 0, size);
+    }
+
+    private static void swap(int[] arr, int elem, int root) {
+        int tmp = arr[root];;
+        arr[root] = arr[elem];
+        arr[elem] = tmp;
     }
 
     private static void test_gcd() {
