@@ -49,15 +49,15 @@ public class Test {
 
     private static void test_fib() {
         long start = System.currentTimeMillis();
-        double result = Functions.fib_rec(7);
+        double result = Functions.fib_rec(25);
         long duration = System.currentTimeMillis() - start;
         System.out.println(result + " " + duration + " ms " + "Через рекурсию");
         start = System.currentTimeMillis();
-        result = Functions.fib_iter(7);
+        result = Functions.fib_iter(1000000000);
         duration = System.currentTimeMillis() - start;
         System.out.println(result + " " + duration + " ms " + "Через итерацию");
         start = System.currentTimeMillis();
-        result = Functions.fib_golden_ratio(7);
+        result = Functions.fib_golden_ratio(1000000000);
         duration = System.currentTimeMillis() - start;
         System.out.println(result + " " + duration + " ms " + "По формуле золотого сечения");
     }

@@ -153,16 +153,16 @@ public class Functions {
         }
     }
 
-    static int fib_iter(int n) {
+    static double fib_iter(double n) {
         if (n < 2) {
             return 1;
         }
 
-        int n0 = 1;
-        int n1 = 1;
+        double n0 = 1;
+        double n1 = 1;
 
         for (int i = 3; i <= n; i++) {
-            int n2 = n0 + n1;
+            double n2 = n0 + n1;
             n0 = n1;
             n1 = n2;
         }
@@ -170,7 +170,7 @@ public class Functions {
     }
 
     static double fib_golden_ratio(int n) {
-        double f = (1 + exp_pow_multi(5, 2)) / 2;
-        return Math.floor(exp_pow_multi(f, n) / exp_pow_multi(5, 2) + 0.5);
+        double f = (1 + Math.sqrt(5)) / 2;
+        return Math.floor(exp_pow_multi(f, n) / Math.sqrt(5) + 0.5);
     }
 }
