@@ -3,38 +3,21 @@ package algebraic;
 public class Test {
 
     public static void main(String[] args) {
-        int[] arr = {1,5,6,8,9,5,1};
-        for (int size = arr.length - 1; size > 0; size--) {
-            sort(arr, size);
-        }
-        for (int i : arr) {
-            System.out.println(i);
-        }
-    }
-
-    private static void sort(int[] arr, int size) {
-
-        for (int j = size; j > 0; j--) {
-            if (arr[j] > arr[0]) {
-                swap(arr, j, 0);
-            }
-        }
-        swap(arr, 0, size);
-    }
-
-    private static void swap(int[] arr, int elem, int root) {
-        int tmp = arr[root];;
-        arr[root] = arr[elem];
-        arr[elem] = tmp;
+        //test_gcd();
     }
 
     private static void test_gcd() {
         long start = System.currentTimeMillis();
-        long result = Functions.gcd(256256, 512);
+        long result = -0;
+        for (int i = 1; i < 10000000; i++) {
+            result = Functions.gcd(256256, i);
+        }
         long duration = System.currentTimeMillis() - start;
         System.out.println(result + " " + duration + " ms " + "НОД");
         start = System.currentTimeMillis();
-        result = Functions.gcd_bit(256256, 512);
+        for (int i = 1; i < 10000000; i++) {
+            result = Functions.gcd_bit(256256, i);
+        }
         duration = System.currentTimeMillis() - start;
         System.out.println(result + " " + duration + " ms " + "НОД Bit");
     }

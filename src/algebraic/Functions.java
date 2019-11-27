@@ -2,7 +2,7 @@ package algebraic;
 
 import storages.arrays.IArray;
 import storages.arrays.SingleArray;
-import storages.arrays.VectorArray;
+
 
 public class Functions {
 
