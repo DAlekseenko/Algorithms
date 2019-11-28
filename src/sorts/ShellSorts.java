@@ -1,7 +1,7 @@
 package sorts;
 
-public class Sorts {
-    static int[] shellSort(int[] arr) {
+class ShellSorts {
+    static int[] first(int[] arr) {
         for (int gap = arr.length / 2; gap > 0; gap /= 2) {
             for (int outer = gap; outer < arr.length; outer++) {
                 int temp = arr[outer];
@@ -16,7 +16,7 @@ public class Sorts {
         return arr;
     }
 
-    static int[] shellSort2(int[] arr) {
+    static int[] second(int[] arr) {
 
         int gap = 1;
         while (gap <= arr.length / 3)
@@ -36,7 +36,7 @@ public class Sorts {
         }
         return arr;
     }
-     static int[] shellSort3(int[] arr) {
+     static int[] third(int[] arr) {
         int gap = arr.length / 2;
         while (gap > 0) {
             for (int i = gap; i < arr.length; i++) {

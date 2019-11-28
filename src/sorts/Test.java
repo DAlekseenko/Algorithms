@@ -4,21 +4,22 @@ import java.util.Random;
 
 public class Test {
     public static void main(String[] args) {
-
         testShellSort();
     }
 
     static void testShellSort() {
+        HeapSort heapSort = new HeapSort();
         Random random = new Random();
 
         int[] arr1 = new int[50000000];
-
         for (int i = 0; i < arr1.length; i++) {
-            arr1[i] = random.nextInt(50000000);
+            arr1[i] = random.nextInt(arr1.length);
         }
 
+        heapSort.setArray(arr1);
+
         long start = System.currentTimeMillis();
-        int[] result = Sorts.shellSort3(arr1);
+        heapSort.sort();
         long duration = System.currentTimeMillis() - start;
         System.out.println(duration + " ms " + "Случайный массив");
 
@@ -34,8 +35,10 @@ public class Test {
             arr2[i] = temp;
         }
 
+        heapSort.setArray(arr2);
+
         start = System.currentTimeMillis();
-        result = Sorts.shellSort3(arr2);
+        heapSort.sort();
         duration = System.currentTimeMillis() - start;
         System.out.println(duration + " ms " + "массив c 5 перемешаными элементами");
 
@@ -51,10 +54,11 @@ public class Test {
             arr3[i] = temp;
         }
 
+        heapSort.setArray(arr3);
+
         start = System.currentTimeMillis();
-        result = Sorts.shellSort3(arr3);
+        heapSort.sort();
         duration = System.currentTimeMillis() - start;
         System.out.println(duration + " ms " + "массив c 10% перемешаных элементов");
-
     }
 }
