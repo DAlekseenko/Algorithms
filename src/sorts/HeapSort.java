@@ -2,13 +2,13 @@ package sorts;
 
 class HeapSort {
 
-    private int[] array;
+    private char[] array;
 
-    void setArray(int[] array) {
+    void setArray(char[] array) {
         this.array = array;
     }
 
-    int[] getArray() {
+    char[] getArray() {
         return array;
     }
 
@@ -41,7 +41,7 @@ class HeapSort {
     }
 
     private void swap(int x, int y) {
-        int tmp = array[x];
+        char tmp = array[x];
         array[x] = array[y];
         array[y] = tmp;
     }

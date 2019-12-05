@@ -6,19 +6,27 @@ public class QuickSort {
 
     QuickSort(int[] array) {
         this.array = array;
-        sort(35);
+        sort(0, array.length - 1);
     }
 
     int[] getArray() {
         return array;
     }
 
-    private int sort(int pivot) {
+    void sort(int left, int right) {
+        if (left >= right) return;
 
-        int index = -1;
+        int center = partition(left, right);
+        sort(left, center -1);
+        sort(center + 1, right);
+    }
 
-        for (int i = 0; i < array.length; i++) {
-            if (i <= pivot) {
+    private int partition(int left, int right) {
+        int index = left - 1;
+        int pivot = array[right];
+
+        for (int i = left; i <= right; i++) {
+            if (array[i] <= pivot) {
                 index++;
                 swap(index, i);
             }
@@ -30,9 +38,5 @@ public class QuickSort {
         int tmp = array[x];
         array[x] = array[y];
         array[y] = tmp;
-    }
-
-    private void func(int [] array, int left, int right){
-
     }
 }
