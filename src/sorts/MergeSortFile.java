@@ -4,39 +4,35 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Random;
 
-public class Program {
+public class MergeSortFile {
 
     public static void main(String[] args) throws IOException {
-
         int blockSize = 1024;
+
         long start = System.currentTimeMillis();
-        prepareMerge(1000000, blockSize);
+        prepareMerge(10000000, blockSize);
         long duration = System.currentTimeMillis() - start;
-        System.out.println(duration + " ms " + "разрезать на кусочки");
+        System.out.println(duration + " ms " + "разрезать на кусочки и отсортировать");
 
         start = System.currentTimeMillis();
         String name = mergeFiles(blockSize);
         duration = System.currentTimeMillis() - start;
-        System.out.println(duration + " ms " + "отсортировать");
+        System.out.println(duration + " ms " + "слияние");
 
-        System.out.println("--------" + name + "------------");
-
+        System.out.println("-------- result file name:" + name + "------------");
         String fileName = "file" + name + ".dat";
-
         RandomAccessFile readFile = new RandomAccessFile(fileName, "r");
+
         int i = 0;
-        int j = 0;
         int ch = readFile.read();
         while (ch != -1) {
-            int k = (int) getChar(ch, readFile.read());
-            System.out.println(k);
-            if (k == 0) {
-                j++;
-            }
+//            int k = (int) getChar(ch, readFile.read());
+//            System.out.println(k);
+            ch = readFile.read();
             ch = readFile.read();
             i++;
         }
-        System.out.println("result count =>" + i + "| 0000 =>" + j);
+        System.out.println("result count =>" + i);
     }
 
     static char getChar(int ch1, int ch2) {
@@ -44,13 +40,12 @@ public class Program {
     }
 
     static void prepareMerge(int length, int N) throws IOException {
-
         Random random = new Random();
         HeapSort heapSort = new HeapSort();
 
         RandomAccessFile dataFile = new RandomAccessFile("file.dat", "rw");
-        for (int i = 0; i < length + 1; i++) {
-            dataFile.writeChar((char) random.nextInt(100));
+        for (int i = 0; i < length; i++) {
+            dataFile.writeChar((char) random.nextInt(65535));
         }
         dataFile.seek(0);
 
@@ -61,11 +56,11 @@ public class Program {
         String currentFile = "A";
         int i = 0;
         int ch = dataFile.read();
-        int end = 0;
+        int count = 0;
         while (ch != -1) {
             array[i] = getChar(ch, dataFile.read());
 
-            if (i == N - 1 || end == length) {
+            if (i == N - 1 || count == length - 1) {
                 heapSort.setArray(array);
                 heapSort.sort();
                 for (char c : array) {
@@ -80,14 +75,18 @@ public class Program {
                 } else {
                     currentFile = "A";
                 }
-                array = new char[N];
+                if (count + N > length) {
+                    array = new char[length % N];
+                } else {
+                    array = new char[N];
+                }
                 i = 0;
                 ch = dataFile.read();
-                end++;
+                count++;
                 continue;
             }
             ch = dataFile.read();
-            end++;
+            count++;
             i++;
         }
         A.close();
@@ -114,25 +113,30 @@ public class Program {
 
         while (true) {
 
-            while (currentOutput != "swap") {
+            while (!currentOutput.equals("swap")) {
                 currentOutput = merge(blockSize, currentOutput, readFile1, readFile2, outputFile);
-                if (currentOutput == "A") {
-                    currentOutput = "B";
-                    outputFile = B;
-                } else if (currentOutput == "B") {
-                    currentOutput = "A";
-                    outputFile = A;
-                } else if (currentOutput == "C") {
-                    currentOutput = "D";
-                    outputFile = D;
-                } else if (currentOutput == "D") {
-                    currentOutput = "C";
-                    outputFile = C;
+                switch (currentOutput) {
+                    case "A":
+                        currentOutput = "B";
+                        outputFile = B;
+                        break;
+                    case "B":
+                        currentOutput = "A";
+                        outputFile = A;
+                        break;
+                    case "C":
+                        currentOutput = "D";
+                        outputFile = D;
+                        break;
+                    case "D":
+                        currentOutput = "C";
+                        outputFile = C;
+                        break;
                 }
             }
 
             blockSize = blockSize * 2;
-            if (input1 == "A") {
+            if (input1.equals("A")) {
 
                 C.seek(0);
                 if (C.read() == -1) {
