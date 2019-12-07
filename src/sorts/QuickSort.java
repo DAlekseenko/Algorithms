@@ -13,7 +13,7 @@ public class QuickSort {
         return array;
     }
 
-    void sort(int left, int right) {
+    private void sort(int left, int right) {
         if (left >= right) return;
 
         int center = partition(left, right);

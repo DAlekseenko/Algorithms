@@ -1,11 +1,48 @@
 package sorts;
 
+
+import storages.arrays.IArray;
+
+import java.util.Random;
+
 public class Test {
     public static void main(String[] args) {
-       // testShellSort();
+        int length = 1000000;
+        Random random = new Random();
+        ShellSequences sequences = new ShellSequences();
+        IArray<String> sq = sequences.getSequences();
+        ShellSort ss = new ShellSort();
+
+        for (int i = 0; i < sq.size() - 1; i++) {
+            int[] arr = new int[length];
+            for (int j = 0; j < arr.length; j++) {
+                arr[j] = random.nextInt(arr.length);
+            }
+            String name = sq.get(i);
+            long start = System.currentTimeMillis();
+            ss.setArr(arr);
+            switch (name) {
+                case "Shell":
+                    ss.sort(sequences.getShellSequence(length, 1000));
+                    System.out.println(System.currentTimeMillis() - start + " ms " + " " + name);
+                    break;
+                case "PrattKnuth":
+                    ss.sort(sequences.getPrattKnuthSequence(length, 1000));
+                    System.out.println(System.currentTimeMillis() - start + " ms " + " " + name);
+                    break;
+                case "Pratt":
+                    ss.sort(sequences.getPrattSequence(length, 1000));
+                    System.out.println(System.currentTimeMillis() - start + " ms " + " " + name);
+                    break;
+                case "Gonnet":
+                    ss.sort(sequences.getGonnetSequence(length, 1000));
+                    System.out.println(System.currentTimeMillis() - start + " ms " + " " + name);
+                    break;
+            }
+        }
     }
 
-//    static void testShellSort() {
+//    static void testSort() {
 //        HeapSort heapSort = new HeapSort();
 //        Random random = new Random();
 //

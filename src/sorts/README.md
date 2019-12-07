@@ -1,4 +1,4 @@
-Shell sort n / 2
+Shell sort Pratt71Knuth
 
 Кол-во элементов|случайность(%)|время(ms)
 ---|---:|---:
